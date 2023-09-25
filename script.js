@@ -23,21 +23,41 @@
 
 // Solution: Find Non-Duplicate Number Instances
 
-function remove_duplicates(arr) {
-  // index of the next non-duplicate element
-  let nextNonDuplicate = 1;
+// function remove_duplicates(arr) {
+//   // index of the next non-duplicate element
+//   let x = 1;
 
-  let i = 0;
-  while (i < arr.length) {
-    if (arr[nextNonDuplicate - 1] !== arr[i]) {
-      arr[nextNonDuplicate] = arr[i];
-      nextNonDuplicate += 1;
+//   let i = 0;
+//   while (i < arr.length) {
+//     if (arr[x - 1] !== arr[i]) {
+//       console.log((arr[x] = arr[i]));
+//       arr[x] = arr[i];
+//       x += 1;
+//     }
+//     i += 1;
+//   }
+
+//   return x;
+// }
+
+// console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
+// console.log(remove_duplicates([2, 2, 2, 11]));
+
+// Introduction to Sliding Window Pattern
+
+function find_averages_of_subarrays(K, arr) {
+  const result = [];
+  for (let i = 0; i < arr.length - K + 1; i++) {
+    // find sum of next 'K' elements
+    sum = 0.0;
+    for (let j = i; j < i + K; j++) {
+      sum += arr[j];
     }
-    i += 1;
+    result.push(sum / K); // calculate average
   }
 
-  return nextNonDuplicate;
+  return result;
 }
 
-console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
-console.log(remove_duplicates([2, 2, 2, 11]));
+const result = find_averages_of_subarrays(5, [1, 3, 2, 6, -1, 4, 1, 8, 2]);
+console.log(`Averages of subarrays of size K: ${result}`);
