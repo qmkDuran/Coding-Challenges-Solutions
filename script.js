@@ -23,50 +23,55 @@
 
 // Solution: Find Non-Duplicate Number Instances
 
-// function remove_duplicates(arr) {
-//   // index of the next non-duplicate element
-//   let x = 1;
+function moveNonDuplicatesToFront(arr) {
+  // Used in scenerios where there is one or zero numbers
+  if (arr.length <= 1) {
+    return arr.length;
+  }
 
-//   let i = 0;
-//   while (i < arr.length) {
-//     if (arr[x - 1] !== arr[i]) {
-//       console.log((arr[x] = arr[i]));
-//       arr[x] = arr[i];
-//       x += 1;
-//     }
-//     i += 1;
-//   }
+  let slow = 0; // Slow pointer to track unique elements
 
-//   return x;
-// }
+  for (let fast = 1; fast < arr.length; fast++) {
+    if (arr[slow] !== arr[fast]) {
+      // Found a non-duplicate element
+      slow++;
+      // Swap the elements at slow and fast pointers
+      [arr[slow], arr[fast]] = [arr[fast], arr[slow]];
+    }
+  }
 
-// console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
-// console.log(remove_duplicates([2, 2, 2, 11]));
+  // The unique elements are now at the beginning of the array.
+  // Subarray length with no duplicates is (slow + 1).
+  return slow + 1;
+}
+
+console.log(moveNonDuplicatesToFront([2, 3, 3, 3, 6, 9, 9]));
+console.log(moveNonDuplicatesToFront([2, 2, 2, 11]));
 
 // Introduction to Sliding Window Pattern
 
-function max_sub_array_of_size_k(k, arr) {
-  let maxSum = 0,
-    windowSum = 0,
-    windowStart = 0;
+// function max_sub_array_of_size_k(k, arr) {
+//   let maxSum = 0,
+//     windowSum = 0,
+//     windowStart = 0;
 
-  for (window_end = 0; window_end < arr.length; window_end++) {
-    windowSum += arr[window_end]; // add the next element
-    // slide the window, no need to slide if we've not hit the window size of 'k'
-    if (window_end >= k - 1) {
-      maxSum = Math.max(maxSum, windowSum);
-      windowSum -= arr[windowStart]; // subtract the element going out
-      windowStart += 1; // slide the window ahead
-    }
-  }
-  return maxSum;
-}
+//   for (window_end = 0; window_end < arr.length; window_end++) {
+//     windowSum += arr[window_end]; // add the next element
+//     // slide the window, no need to slide if we've not hit the window size of 'k'
+//     if (window_end >= k - 1) {
+//       maxSum = Math.max(maxSum, windowSum);
+//       windowSum -= arr[windowStart]; // subtract the element going out
+//       windowStart += 1; // slide the window ahead
+//     }
+//   }
+//   return maxSum;
+// }
 
-console.log(
-  `Maximum sum of a subarray of size K: ` +
-    max_sub_array_of_size_k(3, [2, 1, 5, 1, 3, 2])
-);
-console.log(
-  `Maximum sum of a subarray of size K: ` +
-    max_sub_array_of_size_k(2, [2, 3, 4, 1, 5])
-);
+// console.log(
+//   `Maximum sum of a subarray of size K: ` +
+//     max_sub_array_of_size_k(3, [2, 1, 5, 1, 3, 2])
+// );
+// console.log(
+//   `Maximum sum of a subarray of size K: ` +
+//     max_sub_array_of_size_k(2, [2, 3, 4, 1, 5])
+// );
