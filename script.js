@@ -23,30 +23,24 @@
 
 // Solution: Find Non-Duplicate Number Instances
 
-function moveNonDuplicatesToFront(arr) {
-  // Used in scenerios where there is one or zero numbers
-  if (arr.length <= 1) {
-    return arr.length;
-  }
+function remove_duplicates(arr) {
+  // index of the next non-duplicate element
+  let nextNonDuplicate = 1;
 
-  let slow = 0; // Slow pointer to track unique elements
-
-  for (let fast = 1; fast < arr.length; fast++) {
-    if (arr[slow] !== arr[fast]) {
-      // Found a non-duplicate element
-      slow++;
-      // Swap the elements at slow and fast pointers
-      [arr[slow], arr[fast]] = [arr[fast], arr[slow]];
+  let i = 0;
+  while (i < arr.length) {
+    if (arr[nextNonDuplicate - 1] !== arr[i]) {
+      arr[nextNonDuplicate] = arr[i];
+      nextNonDuplicate += 1;
     }
+    i += 1;
   }
 
-  // The unique elements are now at the beginning of the array.
-  // Subarray length with no duplicates is (slow + 1).
-  return slow + 1;
+  return nextNonDuplicate;
 }
 
-console.log(moveNonDuplicatesToFront([2, 3, 3, 3, 6, 9, 9]));
-console.log(moveNonDuplicatesToFront([2, 2, 2, 11]));
+console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
+console.log(remove_duplicates([2, 2, 2, 11]));
 
 // Introduction to Sliding Window Pattern
 
