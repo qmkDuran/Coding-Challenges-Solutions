@@ -23,24 +23,24 @@
 
 // Solution: Find Non-Duplicate Number Instances
 
-function remove_duplicates(arr) {
-  // index of the next non-duplicate element
-  let nextNonDuplicate = 1;
+// function remove_duplicates(arr) {
+//   // index of the next non-duplicate element
+//   let nextNonDuplicate = 1;
 
-  let i = 0;
-  while (i < arr.length) {
-    if (arr[nextNonDuplicate - 1] !== arr[i]) {
-      arr[nextNonDuplicate] = arr[i];
-      nextNonDuplicate += 1;
-    }
-    i += 1;
-  }
+//   let i = 0;
+//   while (i < arr.length) {
+//     if (arr[nextNonDuplicate - 1] !== arr[i]) {
+//       arr[nextNonDuplicate] = arr[i];
+//       nextNonDuplicate += 1;
+//     }
+//     i += 1;
+//   }
 
-  return nextNonDuplicate;
-}
+//   return nextNonDuplicate;
+// }
 
-console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
-console.log(remove_duplicates([2, 2, 2, 11]));
+// console.log(remove_duplicates([2, 3, 3, 3, 6, 9, 9]));
+// console.log(remove_duplicates([2, 2, 2, 11]));
 
 // Introduction to Sliding Window Pattern
 
@@ -69,3 +69,37 @@ console.log(remove_duplicates([2, 2, 2, 11]));
 //   `Maximum sum of a subarray of size K: ` +
 //     max_sub_array_of_size_k(2, [2, 3, 4, 1, 5])
 // );
+
+class Node {
+  constructor(value, next = null) {
+    this.value = value;
+    this.next = next;
+  }
+}
+
+function has_cycle(head) {
+  let slow = head,
+    fast = head;
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next;
+    slow = slow.next;
+    if (slow === fast) {
+      return true; // found the cycle
+    }
+  }
+  return false;
+}
+
+const head = new Node(1);
+head.next = new Node(2);
+head.next.next = new Node(3);
+head.next.next.next = new Node(4);
+head.next.next.next.next = new Node(5);
+head.next.next.next.next.next = new Node(6);
+console.log(`LinkedList has cycle: ${has_cycle(head)}`);
+
+head.next.next.next.next.next.next = head.next.next;
+console.log(`LinkedList has cycle: ${has_cycle(head)}`);
+
+head.next.next.next.next.next.next = head.next.next.next;
+console.log(`LinkedList has cycle: ${has_cycle(head)}`);
