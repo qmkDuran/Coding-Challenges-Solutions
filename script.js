@@ -70,36 +70,56 @@
 //     max_sub_array_of_size_k(2, [2, 3, 4, 1, 5])
 // );
 
-class Node {
-  constructor(value, next = null) {
-    this.value = value;
-    this.next = next;
-  }
-}
+// class Node {
+//   constructor(value, next = null) {
+//     this.value = value;
+//     this.next = next;
+//   }
+// }
 
-function has_cycle(head) {
-  let slow = head,
-    fast = head;
-  while (fast !== null && fast.next !== null) {
-    fast = fast.next.next;
-    slow = slow.next;
-    if (slow === fast) {
-      return true; // found the cycle
+// function has_cycle(head) {
+//   let slow = head;
+//   let fast = head;
+
+//   while (fast !== null && fast.next !== null) {
+//     fast = fast.next.next;
+//     slow = slow.next;
+//     if (slow === fast) {
+//       return true; // found the cycle
+//     }
+//   }
+
+//   return false;
+// }
+
+// const head = new Node(1);
+// head.next = new Node(2);
+// head.next.next = new Node(3);
+// head.next.next.next = new Node(4);
+// head.next.next.next.next = new Node(5);
+// head.next.next.next.next.next = new Node(6);
+
+// head.next.next.next.next.next = head.next.next;
+// console.log(has_cycle(head));
+
+const uncompress = (s) => {
+  let result = [];
+  const numbers = "0123456789";
+  let i = 0;
+  let j = 0;
+  while (j < s.length) {
+    if (numbers.includes(s[j])) {
+      j += 1;
+    } else {
+      const num = Number(s.slice(i, j));
+      for (let count = 0; count < num; count += 1) {
+        result.push(s[j]);
+      }
+      j += 1;
+      i = j;
     }
   }
-  return false;
-}
+  return result.join("");
+};
 
-const head = new Node(1);
-head.next = new Node(2);
-head.next.next = new Node(3);
-head.next.next.next = new Node(4);
-head.next.next.next.next = new Node(5);
-head.next.next.next.next.next = new Node(6);
-console.log(`LinkedList has cycle: ${has_cycle(head)}`);
-
-head.next.next.next.next.next.next = head.next.next;
-console.log(`LinkedList has cycle: ${has_cycle(head)}`);
-
-head.next.next.next.next.next.next = head.next.next.next;
-console.log(`LinkedList has cycle: ${has_cycle(head)}`);
+uncompress("2c3a1t");
