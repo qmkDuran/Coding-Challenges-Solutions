@@ -102,24 +102,76 @@
 // head.next.next.next.next.next = head.next.next;
 // console.log(has_cycle(head));
 
-const uncompress = (s) => {
-  let result = [];
-  const numbers = "0123456789";
-  let i = 0;
-  let j = 0;
-  while (j < s.length) {
-    if (numbers.includes(s[j])) {
-      j += 1;
-    } else {
-      const num = Number(s.slice(i, j));
-      for (let count = 0; count < num; count += 1) {
-        result.push(s[j]);
-      }
-      j += 1;
-      i = j;
-    }
-  }
-  return result.join("");
+// const uncompress = (s) => {
+//   let result = [];
+//   const numbers = "0123456789";
+//   let i = 0;
+//   let j = 0;
+//   while (j < s.length) {
+//     if (numbers.includes(s[j])) {
+//       j += 1;
+//     } else {
+//       const num = Number(s.slice(i, j));
+//       for (let count = 0; count < num; count += 1) {
+//         result.push(s[j]);
+//       }
+//       j += 1;
+//       i = j;
+//     }
+//   }
+//   return result.join("");
+// };
+
+var isAnagram = function (s, t) {
+  // Create an empty Map to store character frequencies.
+  const map = new Map();
+
+  // Check if the lengths of 's' and 't' are equal. If lengths are not equal, they can't be anagrams.
+  if (s.length !== t.length) return false;
+
+  // Count character frequencies in string 's' and 't'.
+  addFrequency(s, map); // Add frequencies from 's'.
+  console.log(map);
+  subtractFrequency(t, map); // Subtract frequencies from 't'.
+  console.log(map);
+  // Check if all frequencies are zero, indicating an anagram.
+  return checkFrequency(map);
 };
 
-uncompress("2c3a1t");
+// Function to add character frequencies from a string to the map.
+const addFrequency = (str, map) => {
+  for (const char of str) {
+    // Get the current count of the character or initialize to 0 and then increment.
+    const count = (map.get(char) || 0) + 1;
+
+    // Set the updated count in the map.
+    map.set(char, count);
+  }
+};
+
+// Function to subtract character frequencies from a string in the map.
+const subtractFrequency = (str, map) => {
+  for (const char of str) {
+    // Check if the character exists in the map.
+    if (!map.has(char)) continue;
+
+    // Decrement the count of the character in the map.
+    const count = map.get(char) - 1;
+
+    // Update the count in the map.
+    map.set(char, count);
+  }
+};
+
+// Function to check if all character frequencies in the map are zero.
+const checkFrequency = (map) => {
+  for (const [char, count] of map) {
+    // Check if the count is not zero; if any are non-zero, it's not an anagram.
+    const isEmpty = count === 0;
+    if (!isEmpty) return false;
+  }
+
+  return true; // If all counts are zero, it's an anagram.
+};
+
+isAnagram("anagram", "nagaram");
