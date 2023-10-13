@@ -1,22 +1,16 @@
-//nums = [-1,0,3,5,9,12], target = 9
+var hasCycle = function (head) {
+  let [slow, fast] = [head, head];
 
-var search = function (nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
+  while (fast && fast.next) {
+    /* Time O(N) */
+    slow = slow.next;
+    fast = fast.next.next;
 
-  while (left <= right) {
-    const mid = (left + right) >> 1;
-    const guess = nums[mid];
-
-    const isTarget = guess === target;
-    if (isTarget) return mid;
-
-    const isTargetGreater = guess < target;
-    if (isTargetGreater) left = mid + 1;
-
-    const isTargetLess = target < guess;
-    if (isTargetLess) right = mid - 1;
+    const hasCycle = slow === fast;
+    if (hasCycle) return true;
   }
 
-  return -1;
+  return false;
 };
+
+hasCycle()
