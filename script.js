@@ -1,25 +1,18 @@
-const mostFrequentChar = (s) => {
-  const count = {}; // Create an empty object to keep track of character frequencies
+const pairSum = (numbers, targetSum) => {
+  let sortedNums = numbers.sort();
+  let left = 0;
+  let right = numbers.length - 1;
 
-  // First loop to populate the count object
-  for (let char of s) {
-    if (!(char in count)) {
-      // Check if the character is not already in the count object
-      count[char] = 0; // Initialize the count for this character to 0
-    }
-    count[char] += 1; // Increment the count for this character
-  }
-
-  let best = null; // Variable to store the most frequent character; initialized to null
-
-  // Second loop to find the most frequent character
-  for (let char of s) {
-    // If best is null or if the count of the current character is greater than the count of 'best'
-    if (best === null || count[char] > count[best]) {
-      best = char; // Update 'best' to the current character
+  while (left < right) {
+    const sum = sortedNums[left] + sortedNums[right];
+    if (sum === targetSum) {
+      return [sortedNums[left], sortedNums[right]];
+    } else if (sum < targetSum) {
+      left += 1;
+    } else {
+      right -= 1;
     }
   }
-  return best; // Return the most frequent character
 };
 
-mostFrequentChar("bookeeper");
+pairSum([3, 2, 5, 4, 1], 8);
