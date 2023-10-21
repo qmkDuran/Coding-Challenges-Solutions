@@ -1,24 +1,21 @@
-const zipperLists = (head1, head2) => {
-  const head = head1;
-  let tail = head;
-  let current1 = head1.next;
-  let current2 = head2;
-  let count = 0;
+function solution(N) {
+    const binary = N.toString(2);
+    let maxGap = 0;
+    let currentGap = 0;
 
-  while (current1 !== null && current2 !== null) {
-    if (count % 2 === 0) {
-      tail.next = current2;
-      current2 = current2.next;
-    } else {
-      tail.next = current1;
-      current1 = current1.next;
+    for (let digit of binary) {
+        if (digit === '1') {
+            if (currentGap > maxGap) {
+                maxGap = currentGap;
+            }
+            currentGap = 0;
+        } else {
+            currentGap++;
+        }
     }
-    tail = tail.next;
-    count += 1;
-  }
 
-  if (current1 !== null) tail.next = current1;
-  if (current2 !== null) tail.next = current2;
+    return maxGap;
+}
 
-  return head;
-};
+
+solution(1041)
