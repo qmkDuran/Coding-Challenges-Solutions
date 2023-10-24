@@ -1,21 +1,41 @@
-function solution(N) {
-    const binary = N.toString(2);
-    let maxGap = 0;
-    let currentGap = 0;
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+const d = new Node("d");
+const e = new Node("e");
+const f = new Node("f");
 
-    for (let digit of binary) {
-        if (digit === '1') {
-            if (currentGap > maxGap) {
-                maxGap = currentGap;
-            }
-            currentGap = 0;
-        } else {
-            currentGap++;
-        }
-    }
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
 
-    return maxGap;
-}
+//      a
+//    /   \
+//   b     c
+//  / \     \
+// d   e     f
 
+depthFirstValues(a);
+//    -> ['a', 'b', 'd', 'e', 'c', 'f']
 
-solution(1041)
+const depthFirstValues = (root) => {
+  if (root === null) return [];
+
+  const values = [];
+  const stack = [root];
+
+  console.log("TESTING HOT DOP");
+
+  while (stack.length > 0) {
+    const node = stack.pop();
+    values.push(node.val);
+
+    if (node.right !== null) stack.push(node.right);
+
+    if (node.left !== null) stack.push(node.left);
+  }
+
+  return values;
+};
